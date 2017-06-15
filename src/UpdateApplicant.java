@@ -8,61 +8,59 @@ import java.sql.SQLException;
 public class UpdateApplicant {
 
 	private Connection conResume = null;
-	private Statement stmtResume = null;
+	//private Statement stmtResume = null;
 	private PreparedStatement pstmtResume = null;
 	private ResultSet rstApp = null;
-
-
+	
 	public void AddApplicant(String appfName, String applName, String appeMail){
-		//System.out.printf(applName, appeMail);
+	
 		try{
-			// 	Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver");
 			conResume = DriverManager.getConnection("jdbc:mysql://localhost/resume?"
 							+ "user=root&password=password");
 
-			pstmtResume = conResume.prepareStatement("Insert into applicant(ApplId,FirstName,LastName, Email) values(?,?,?,?)"); 
-			//System.out.print(pstmtResume);
+			pstmtResume = conResume.prepareStatement("Insert into applicant(FirstName,LastName, Email) values(?,?,?)"); 
    
-			pstmtResume.setInt(1,101); 
-			pstmtResume.setString(2,appfName);
-			pstmtResume.setString(3,applName);
-			pstmtResume.setString(4,appeMail);
+			//pstmtResume.setInt(1,10); 
+			pstmtResume.setString(1,appfName);
+			pstmtResume.setString(2,applName);
+			pstmtResume.setString(3,appeMail);
 			pstmtResume.executeUpdate();
 			
 			}catch  (SQLException e) {
 					e.printStackTrace();
-			}finally{
-   					CloseDBConnection();
-					}
-	}
+			}catch  (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		finally{
+			try{		
+				pstmtResume.close();
+				conResume.close();
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+			}
+    	}
 
 		public void DeleteApplicant(int AppId){
 		try{
-			// 	Class.forName("com.mysql.jdbc.Driver");
+				Class.forName("com.mysql.jdbc.Driver");
 			conResume = DriverManager.getConnection("jdbc:mysql://localhost/resume?"
 							+ "user=root&password=password");
 
 			pstmtResume = conResume.prepareStatement("DELETE FROM applicant WHERE ApplId = '"+ AppId + "'"); 
-			System.out.println(pstmtResume);
-   
-		//	pstmtResume.setInt(1,105); 
-			
-		//	pstmtResume.executeUpdate();
-			
+			System.out.println(pstmtResume);			
 			}catch  (SQLException e) {
-			
+				e.printStackTrace();
+			}catch  (ClassNotFoundException e) {
+				e.printStackTrace();
 			}finally{
-					CloseDBConnection();
-					}
-   		}
-	
-	public void CloseDBConnection() {
-		try{
-			rstApp.close();
-			pstmtResume.close();
-			conResume.close();
-		}catch(SQLException e){
-			e.printStackTrace();
-		}
-	}
+				try{		
+					pstmtResume.close();
+					conResume.close();
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
+				}
+   		}	
 }

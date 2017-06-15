@@ -7,9 +7,6 @@ public class ResumeApp {
 	  public static void main(String[] args){
 		  String fName, lName, eMail;
 		  int appId = 0;
-		//  String Education;
-		//  String Experience;
-		//  String Skills;
 		  String answer;
 		  boolean result;
 		  int appI = 0, edI= 0, expI = 0, skI = 0;
@@ -30,7 +27,7 @@ public class ResumeApp {
 		  UpdateSkill adSki = new UpdateSkill();
 		  UpdateSkill delSki = new UpdateSkill();
 
-		  
+
 		  System.out.print("Enter your first name: ");
 		  fName = scanner.nextLine();
 
@@ -46,11 +43,12 @@ public class ResumeApp {
 			}while(eMail == null);
 		  	
 		  	adApp.AddApplicant(fName, lName, eMail);
-		  	delApp.DeleteApplicant(105);
+		//  	delApp.DeleteApplicant(fName);
 		  	// delApp.DeleteApplicant(appId);
-		  
+
+		  	
 		    //Input Education
-		  do{  //get the education details
+		  do{  
 		        System.out.println("Current Education shows " + listEd);
 	            System.out.println("Add more details? (y/n)");
 	            Scanner inputEdr = new Scanner(System.in);  
@@ -62,13 +60,13 @@ public class ResumeApp {
 	                listEd.add(eInput);
 	                edI++; 
 	            	}           
-			  } while (answer.equalsIgnoreCase("y"));
-		
+			  } while (answer.equalsIgnoreCase("y")); 
+		   
 			   adEdu.addEducation(listEd);
-			   delEdu.DeleteEducation(205);
-
-			 //Input Experience
-			do {//get the experience details
+			  // delEdu.DeleteEducation(205);
+			   
+		 //Input Experience
+		 do {
 	            System.out.println("Current Experience shows " + listExp);
 	            System.out.println("Add more details? (y/n)");
 	            Scanner inputExpr = new Scanner(System.in);  
@@ -80,20 +78,22 @@ public class ResumeApp {
 	                listExp.add(xInput);
 	                expI++;       
 	            }   
-			  } while (answer.equalsIgnoreCase("y"));
+	            	  } while (answer.equalsIgnoreCase("y"));
 			
 			   adExp.addExperience(listExp);
-			   delExp.DeleteExperience(305);
-
-	        
+			  
+			   System.out.println(listExp);
+			//   delExp.DeleteExperience(305);
+    
+			   
 			//Input Skills
-	        do {//get the skills & Rating details
+	        do {
 	            System.out.println("Current Skills shows " + listSkills);
 	            System.out.println("Add more details? (y/n)");
 	            Scanner inputSkr = new Scanner(System.in);  
 	            answer = inputSkr.next();
 	            if (answer.equalsIgnoreCase("y")){
-	                System.out.println("Enter Skills Details: ");
+	            	System.out.println("Enter Skills Details: ");
 	                Scanner inputSkills = new Scanner(System.in);  
 	                String sInput = inputSkills.nextLine();
 	                listSkills.add(sInput);
@@ -102,6 +102,7 @@ public class ResumeApp {
 			  } while (answer.equalsIgnoreCase("y"));
 	     
 	        	adSki.addSkill(listSkills);
-	        	delSki.DeleteSkill(405);
-	   }   
+	        //	delSki.DeleteSkill(405);
+	   } 
 	}
+

@@ -12,32 +12,38 @@ public class UpdateSkill {
 	private Connection conResume = null;
 	private Statement stmtResume = null;
 	private PreparedStatement pstmtResume = null;
-	private ResultSet rstSki = null;
+	//private ResultSet rstSki = null;
 
 
 	public void addSkill(ArrayList<String> listSkills){
 		
 	
 		try{
-			// 	Class.forName("com.mysql.jdbc.Driver");
+			 	Class.forName("com.mysql.jdbc.Driver");
 			conResume = DriverManager.getConnection("jdbc:mysql://localhost/resume?"
 							+ "user=root&password=password");
 
-			pstmtResume = conResume.prepareStatement("Insert into skills (SkilId,Skill) values(?,?)"); 
+			pstmtResume = conResume.prepareStatement("Insert into skills (Skill) values(?)"); 
 			//System.out.print(pstmtResume);
    
 			for (int k = 0; k < listSkills.size()-1; k++){
-				pstmtResume.setInt(1, 401);
-				pstmtResume.setString(2, listSkills.get(k).toString());
+			//	pstmtResume.setInt(1, 401);
+				pstmtResume.setString(1, listSkills.get(k).toString());
 				pstmtResume.addBatch();
 		        pstmtResume.executeBatch(); 
-		        conResume.commit();
 			}  
 			}catch  (SQLException e) {
-					e.printStackTrace();
+				e.printStackTrace();
+			}catch (ClassNotFoundException e){
+				e.printStackTrace();
 			}finally{
-   					CloseDBConnection();
-					}
+				try{
+					pstmtResume.close();
+					conResume.close();
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
+				}
 	}
 
 		public void DeleteSkill(int AppId){
@@ -50,18 +56,12 @@ public class UpdateSkill {
 			}catch  (SQLException e) {
 			
 			}finally{
-					CloseDBConnection();
-					}
+				try{
+					pstmtResume.close();
+					conResume.close();
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
+				}
    		}
-	
-	public void CloseDBConnection() {
-		try{
-			rstSki.close();
-			pstmtResume.close();
-			conResume.close();
-		}catch(SQLException e){
-			e.printStackTrace();
-		}
-	}
-
 }
