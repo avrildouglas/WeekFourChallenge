@@ -1,3 +1,5 @@
+package resumeout;
+
 import com.mysql.jdbc.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;

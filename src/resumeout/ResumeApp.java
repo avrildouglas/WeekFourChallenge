@@ -1,3 +1,5 @@
+package resumeout;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
